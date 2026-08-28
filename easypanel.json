@@ -1,0 +1,34 @@
+cat > easypanel.json << 'EOF'
+{
+  "name": "shopee-resolver",
+  "source": {
+    "type": "github",
+    "repo": ""
+  },
+  "env": [
+    {
+      "key": "PORT",
+      "value": "3000"
+    },
+    {
+      "key": "SHOPEE_COUNTRY",
+      "value": "id"
+    }
+  ],
+  "ports": [
+    {
+      "name": "web",
+      "containerPort": 3000,
+      "servicePort": 80,
+      "protocol": "TCP"
+    }
+  ],
+  "healthCheck": {
+    "test": "wget -qO- http://localhost:3000/ || exit 1",
+    "interval": 30,
+    "timeout": 10,
+    "retries": 3
+  }
+}
+EOF
+echo "easypanel.json created"
